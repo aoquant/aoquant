@@ -1,4 +1,4 @@
-""" 感谢原作者：51bitquant
+"""
     1. 爬取交易所的数据， 并存入存入 CSV 里面.
     2. 对交易所的数据进行清洗.
 """
@@ -15,7 +15,7 @@ pd.set_option('expand_frame_repr', False)  #
 TIMEOUT = 6  # 6 second
 BITFINEX_LIMIT = 5000
 BITMEX_LIMIT = 500
-BINANCE_LIMIT = 2000
+BINANCE_LIMIT = 1000
 
 
 def crawl_exchanges_datas(exchange_name, symbol, start_time, end_time):
@@ -49,7 +49,7 @@ def crawl_exchanges_datas(exchange_name, symbol, start_time, end_time):
     print(start_time_stamp)  # 1529233920000
     print(end_time_stamp)
 
-    limit_count = 2000
+    limit_count = 1000
     if exchange_name == 'bitfinex':
         limit_count = BITFINEX_LIMIT
     elif exchange_name == 'bitmex':
@@ -63,20 +63,19 @@ def crawl_exchanges_datas(exchange_name, symbol, start_time, end_time):
             print(start_time_stamp)
             data = exchange.fetch_ohlcv(symbol, timeframe='1d', since=start_time_stamp, limit=limit_count)
             df = pd.DataFrame(data)
+
             df.rename(columns={0: 'open_time', 1: 'open', 2: 'high', 3: 'low', 4: 'close', 5: 'volume'}, inplace=True)
 
             start_time_stamp = int(df.iloc[-1]['open_time'])  # 获取下一个次请求的时间.
 
-            filename = str(start_time_stamp) + '.csv'
+            filename = 'Binance_btcusdt_1day_data.csv'
             save_file_path = os.path.join(file_dir, filename)
 
-            print("文件保存路径为：%s" % save_file_path)
             # exit()
             df.set_index('open_time', drop=True, inplace=True)
             df.to_csv(save_file_path)
-
             if start_time_stamp > end_time_stamp:
-                print("完成数据的请求.")
+                print("行情已抓取,CSV已生成.")
                 break
 
             time.sleep(3)
@@ -152,7 +151,7 @@ if __name__ == '__main__':
     # crawl_exchanges_datas('bitmex', 'BTC/USD', '2018-1-1', '2018-3-1')
     # crawl_exchanges_datas('bitfinex', 'BTC/USDT', '2018-1-1', '2019-7-22')
 
-    # sample_datas('bitfinex', 'BTC/USD')
-    clear_datas('binance', 'BTC/USD')
+    sample_datas('binance', 'BTC/USDT')
+    clear_datas('binance', 'BTC/USDT') 
 
     pass
