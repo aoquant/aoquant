@@ -1,4 +1,4 @@
-# CenturyQuant（世纪量化）
+# AoQuant（奥宽量化）
 
 *****专注于数字货币量化交易*****
 
@@ -7,6 +7,6 @@
 策略分析（策略回测）、
 策略执行（实盘交易）
 
-世纪量化官网 http://www.centuryquant.com
+奥宽量化官网 http://www.aoquant.com
 
 Mail：hnad@vip.qq.com
