@@ -9,4 +9,5 @@
 
 奥宽量化官网 https://www.aoquant.com
 
-Mail：hnad@vip.qq.com
+Mail：aoquant@foxmail.com
+
